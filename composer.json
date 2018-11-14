@@ -1,0 +1,40 @@
+{
+    "name": "dewsign/nova-spaces",
+    "description": "Spaces for Laravel Nova",
+    "type": "package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marco Mark",
+            "email": "m2de@outlook.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": ">=5.0.0",
+        "maxfactor/support": "^2.0.0",
+        "benjaminhirsch/nova-slug-field": "^1.0",
+        "silvanite/nova-field-cloudinary": "^1.0",
+        "dewsign/nova-repeater-blocks": "^1.0.4",
+        "epartment/nova-dependency-container": "^1.1",
+        "silvanite/brandenburg": "^1.0",
+        "silvanite/nova-field-hidden": "^1.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": ">=3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dewsign\\NovaSpaces\\": "src-php/"
+        }
+    },
+    "extra":{
+        "laravel": {
+            "providers": [
+                "Dewsign\\NovaSpaces\\Providers\\PackageServiceProvider"
+            ]
+        }
+    }
+}
