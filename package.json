@@ -1,6 +1,6 @@
 {
     "name": "@dewsign/nova-spaces",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "description": "Spaces for Laravel Nova",
     "main": "dist-js/index.js",
     "scripts": {
