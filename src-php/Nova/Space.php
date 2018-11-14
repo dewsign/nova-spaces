@@ -52,7 +52,7 @@ class Space extends Repeater
             Sortable::make('Sort', 'id'),
             ID::make(),
             Boolean::make('Active')->rules('required', 'boolean'),
-            Boolean::make('Global', 'featured')->rules('required', 'boolean'),
+            $this->globalToggle($request),
             MorphTo::make('Parent', 'spaceable')->types(array_wrap(static::class))->onlyOnDetail(),
             Text::make('Title')->rules('nullable', 'max:254')->hideFromIndex(),
             Text::make('Label', function () {
@@ -60,8 +60,33 @@ class Space extends Repeater
             }),
             Hidden::make('Zone')->value(static::$zone),
             Polymorphic::make('Type')->types($request, $this->types($request)),
-            MorphMany::make(__('Items'), 'spaces', static::class),
         ];
+    }
+
+    private function globalToggle($request)
+    {
+        return $this->isRootSpace($request) ? $this->merge([
+            Boolean::make('Global', 'featured')->rules('required', 'boolean'),
+        ]) : $this->merge([]);
+    }
+
+    private function isRootSpace($request)
+    {
+        if ($resource = $request->get('viaResource')) {
+            return $resource === '';
+        };
+
+        parse_str(parse_url($request->headers->get('referer'), PHP_URL_QUERY), $params);
+
+        if ($resource = array_get($params, 'viaResource')) {
+            return $resource === '';
+        };
+
+        if ($resourceId = $request->route('viaResource')) {
+            return $resource === '';
+        };
+
+        return true;
     }
 
     // What type of repeater blocks should be made available
