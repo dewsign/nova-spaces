@@ -28,6 +28,7 @@ class PackageServiceProvider extends ServiceProvider
         $this->registerMorphMaps();
         $this->configurePagination();
         $this->loadTranslations();
+        $this->registerBladeExtensions();
     }
 
     /**
@@ -40,8 +41,6 @@ class PackageServiceProvider extends ServiceProvider
         // Nova::resources([
         //     SpaceItem::class,
         // ]);
-
-        $this->registerBladeExtensions();
 
         $this->mergeConfigFrom(
             $this->getConfigsPath(),
