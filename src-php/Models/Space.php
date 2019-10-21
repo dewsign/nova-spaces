@@ -2,6 +2,7 @@
 
 namespace Dewsign\NovaSpaces\Models;
 
+use Illuminate\Support\Arr;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Maxfactor\Support\Model\Traits\HasSortOrder;
@@ -69,7 +70,7 @@ class Space extends Model implements Sortable
 
     public static function globals($overwrite = [])
     {
-        $spaces = self::whereIn('id', array_wrap($overwrite))->get();
+        $spaces = self::whereIn('id', Arr::wrap($overwrite))->get();
 
         return $spaces->count() ? $spaces : self::featured()->active()->get();
     }
