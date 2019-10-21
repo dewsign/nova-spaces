@@ -3,6 +3,7 @@
 namespace Dewsign\NovaSpaces\Nova;
 
 use Laravel\Nova\Resource;
+use Illuminate\Support\Arr;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -53,7 +54,7 @@ class Space extends Repeater
             ID::make(),
             Boolean::make('Active')->rules('required', 'boolean'),
             $this->globalToggle($request),
-            MorphTo::make('Parent', 'spaceable')->types(array_wrap(static::class))->onlyOnDetail(),
+            MorphTo::make('Parent', 'spaceable')->types(Arr::wrap(static::class))->onlyOnDetail(),
             Text::make('Title')->rules('nullable', 'max:254')->hideFromIndex(),
             Text::make('Label', function () {
                 return $this->label;
@@ -78,7 +79,7 @@ class Space extends Repeater
 
         parse_str(parse_url($request->headers->get('referer'), PHP_URL_QUERY), $params);
 
-        if ($resource = array_get($params, 'viaResource')) {
+        if ($resource = Arr::get($params, 'viaResource')) {
             return $resource === '';
         };
 
@@ -122,7 +123,7 @@ class Space extends Repeater
 
         parse_str(parse_url($request->server->get('HTTP_REFERER'), PHP_URL_QUERY), $params);
 
-        if ($resourceId = array_get($params, 'viaResourceId')) {
+        if ($resourceId = Arr::get($params, 'viaResourceId')) {
             return $resourceId;
         };
 
